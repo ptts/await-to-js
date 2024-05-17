@@ -3,7 +3,7 @@
  * @param { Object= } errorExt - Additional Information you can pass to the err object
  * @return { Promise }
  */
-export function to<T, U = Error> (
+export function to<T, U = Error>(
   promise: Promise<T>,
   errorExt?: object
 ): Promise<[U, undefined] | [null, T]> {
@@ -15,7 +15,8 @@ export function to<T, U = Error> (
         return [parsedError, undefined];
       }
 
-      return [err, undefined];
+      const defaultError = err ? err : new Error();
+      return [defaultError as U, undefined];
     });
 }
 
